@@ -14,7 +14,7 @@ mhn_void test_data_free(mhn_void** elem)
 }
 int main(void)
 {
-    int i;
+    int i = 5;
     mhn_map_t*      map  = NULL;
     test_data_t*    data = NULL;
 
@@ -25,24 +25,10 @@ int main(void)
     handle_free((mhn_void**)&data);
 
     mhn_map_init(&map, NULL, test_data_free, mhn_compare_int);
-    for (i = 1; i <= 15; ++i)
     {
         data = (test_data_t*)malloc(sizeof(test_data_t));
         data->key = data->data = i;
         mhn_map_insert(map, (void*)&data->key, (void*)data);
-    }
-    mhn_map_free(&map);
-
-    mhn_map_init(&map, NULL, test_data_free, mhn_compare_int);
-    for (i = 15; i > 0; --i)
-    {
-        data = (test_data_t*)malloc(sizeof(test_data_t));
-        data->key = data->data = i;
-        mhn_map_insert(map, (void*)&data->key, (void*)data);
-    }
-
-    for (i = 15; i > 0; --i)
-    {
         mhn_map_delete(map, (void*)&i);
     }
     mhn_map_free(&map);
